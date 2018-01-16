@@ -1,10 +1,17 @@
 package com.wagnermacedo.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 public class Car {
+    @NotEmpty
     private String name;
-    private Double price;
+
+    @Min(1000) @Max(5000000)
+    private BigDecimal price;
 
     public String getName() {
         return name;
@@ -14,11 +21,11 @@ public class Car {
         this.name = name;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }
