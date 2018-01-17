@@ -6,13 +6,13 @@
 <form:form method="POST" modelAttribute="car">
     <p>
         Name:
-        <input type="text" name="name" />
-        <form:errors path="name" cssClass="error"></form:errors>
+        <form:input path="name" />
+        <form:errors path="name" cssClass="error" />
     </p>
     <p>
         Price:
-        <input type="text" name="price" />
-        <form:errors path="price" cssClass="error"></form:errors>
+        <form:input path="price" />
+        <form:errors path="price" cssClass="error" />
     </p>
 
     <input type="submit" />
