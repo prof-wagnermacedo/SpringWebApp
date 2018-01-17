@@ -12,8 +12,8 @@ public class CarService {
     @Autowired
     private CarDAO carDAO;
 
-    public void add(Car car) {
-        carDAO.add(car);
+    public void save(Car car) {
+        carDAO.save(car);
     }
 
     public List<Car> findAll() {

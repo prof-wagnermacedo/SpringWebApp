@@ -29,6 +29,15 @@ public class CarDAO {
         jdbcTemplate.update(sql, car.getName(), car.getPrice(), car.getId());
     }
 
+    public void save(Car car) {
+        if (car.getId() == null) {
+            add(car);
+        }
+        else {
+            update(car);
+        }
+    }
+
     public List<Car> findAll() {
         String sql =
                 "SELECT c.id, c.name, c.price, a.id as a_id, a.description FROM Car c " +

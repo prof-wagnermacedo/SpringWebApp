@@ -35,7 +35,7 @@ public class CarController {
         }
 
         // validação foi bem sucedida
-        carService.add(car);
+        carService.save(car);
         return "redirect:/car/list";
     }
 
