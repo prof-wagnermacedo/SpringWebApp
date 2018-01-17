@@ -23,7 +23,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.wagnermacedo.service", "com.wagnermacedo.controller"})
+@ComponentScan(basePackages = {"com.wagnermacedo.dao", "com.wagnermacedo.service", "com.wagnermacedo.controller"})
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ViewResolver jspViewResolver() {
