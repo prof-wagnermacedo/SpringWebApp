@@ -38,6 +38,11 @@ public class CarDAO {
         }
     }
 
+    public void delete(Car user) {
+        String sql = "DELETE FROM Car WHERE id=?";
+        jdbcTemplate.update(sql, user.getId());
+    }
+
     public List<Car> findAll() {
         String sql =
                 "SELECT c.id, c.name, c.price, a.id as a_id, a.description FROM Car c " +
