@@ -9,10 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Hashtable;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class CarDAO {
@@ -22,6 +19,17 @@ public class CarDAO {
     public void add(Car car) {
         String sql = "INSERT INTO Car (name, price) VALUES (?, ?)";
         jdbcTemplate.update(sql, car.getName(), car.getPrice());
+    }
+
+    public void add(List<Car> carList) {
+        String sql = "INSERT INTO Car (name, price) VALUES (?, ?)";
+
+        List<Object[]> carRows = new ArrayList<>();
+        for (Car car : carList) {
+            carRows.add(new Object[] {car.getName(), car.getPrice()});
+        }
+
+        jdbcTemplate.batchUpdate(sql, carRows);
     }
 
     public void update(Car car) {
