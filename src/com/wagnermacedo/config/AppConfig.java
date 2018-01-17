@@ -6,7 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -23,6 +25,7 @@ import java.util.Locale;
 
 @Configuration
 @EnableWebMvc
+@EnableTransactionManagement
 @ComponentScan(basePackages = {"com.wagnermacedo.dao", "com.wagnermacedo.service", "com.wagnermacedo.controller"})
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
@@ -77,5 +80,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public DataSourceTransactionManager transactionManager() {
+        DataSourceTransactionManager dstm = new DataSourceTransactionManager();
+        dstm.setDataSource(dataSource());
+        return dstm;
     }
 }
