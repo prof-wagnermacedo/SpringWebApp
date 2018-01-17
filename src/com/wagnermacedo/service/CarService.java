@@ -17,10 +17,10 @@ public class CarService {
     }
 
     public List<Car> findAll() {
-        return null;
+        return carDAO.findAll();
     }
 
     public Car find(long id) {
-        return null;
+        return carDAO.findById(id);
     }
 }
