@@ -2,6 +2,7 @@ package com.wagnermacedo.dao;
 
 import com.wagnermacedo.domain.Car;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -22,25 +23,13 @@ public class CarDAO {
 
     public List<Car> findAll() {
         String sql = "SELECT * FROM Car";
-        List<Car> carList = jdbcTemplate.query(sql, new CarMapper());
+        List<Car> carList = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Car.class));
         return carList;
     }
 
     public Car findById(long id) {
         String sql = "SELECT * FROM Car WHERE id=?";
-        Car car = jdbcTemplate.queryForObject(sql, new Object[]{id}, new CarMapper());
+        Car car = jdbcTemplate.queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(Car.class));
         return car;
-    }
-
-    private class CarMapper implements RowMapper<Car> {
-        public Car mapRow(ResultSet row, int rowNum) throws SQLException {
-            Car car = new Car();
-
-            car.setId(row.getLong("id"));
-            car.setName(row.getString("name"));
-            car.setPrice(row.getBigDecimal("price"));
-
-            return car;
-        }
     }
 }
