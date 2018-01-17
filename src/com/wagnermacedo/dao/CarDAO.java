@@ -43,6 +43,11 @@ public class CarDAO {
         jdbcTemplate.update(sql, user.getId());
     }
 
+    public long countCheapCars() {
+        String sql = "SELECT count(*) FROM Car WHERE price < 5000";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
     public List<Car> findAll() {
         String sql =
                 "SELECT c.id, c.name, c.price, a.id as a_id, a.description FROM Car c " +
