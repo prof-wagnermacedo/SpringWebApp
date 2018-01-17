@@ -1,15 +1,18 @@
 package com.wagnermacedo.dao;
 
+import com.wagnermacedo.domain.Accessory;
 import com.wagnermacedo.domain.Car;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.*;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CarDAO {
@@ -22,8 +25,11 @@ public class CarDAO {
     }
 
     public List<Car> findAll() {
-        String sql = "SELECT * FROM Car";
-        List<Car> carList = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Car.class));
+        String sql =
+                "SELECT c.id, c.name, c.price, a.id as a_id, a.description FROM Car c " +
+                "LEFT JOIN Accessory a ON a.car_id = c.id " +
+                "ORDER BY c.id ASC";
+        List<Car> carList = jdbcTemplate.query(sql, new CarWithAccessories());
         return carList;
     }
 
@@ -31,5 +37,39 @@ public class CarDAO {
         String sql = "SELECT * FROM Car WHERE id=?";
         Car car = jdbcTemplate.queryForObject(sql, new Object[]{id}, BeanPropertyRowMapper.newInstance(Car.class));
         return car;
+    }
+
+    private class CarWithAccessories implements ResultSetExtractor<List<Car>> {
+        @Override
+        public List<Car> extractData(ResultSet rs) throws SQLException, DataAccessException {
+            Map<Long, Car> carMap = new Hashtable<>();
+            Car c = null;
+            while (rs.next()) {
+                // carro está no map?
+                long id = rs.getLong("id");
+                c = carMap.get(id);
+
+                // se não, adiciona
+                if (c == null) {
+                    c = new Car();
+                    c.setId(id);
+                    c.setName(rs.getString("name"));
+                    c.setPrice(rs.getBigDecimal("price"));
+                    carMap.put(id, c);
+                }
+
+                // cria acessório, se existir
+                long accessoryId = rs.getLong("a_id");
+                if (accessoryId > 0) {
+                    Accessory a = new Accessory();
+                    a.setId(accessoryId);
+                    a.setDescription(rs.getString("description"));
+                    c.getAccessories().add(a);
+                }
+            }
+
+            LinkedList<Car> cars = new LinkedList<>(carMap.values());
+            return cars;
+        }
     }
 }

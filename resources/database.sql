@@ -6,3 +6,9 @@ create table if not exists `Car` (
     `name` text,
     `price` real
 );
+
+create table if not exists `Accessory` (
+    `id` int auto_increment primary key,
+    `description` text,
+    `car_id` int references `Car` (`id`)
+);
