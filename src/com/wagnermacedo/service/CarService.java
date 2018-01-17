@@ -40,9 +40,9 @@ public class CarService {
     }
 
     public Car find(long id) {
-        for (Car next : carList) {
-            if (id == next.getId()) {
-                return next;
+        for (Car car : carList) {
+            if (id == car.getId()) {
+                return car;
             }
         }
 

@@ -12,21 +12,22 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("/car")
 public class CarController {
     @Autowired
     private CarService carService;
 
-    @RequestMapping("/car/list")
+    @RequestMapping("/list")
     public void carList(Model model) {
         List<Car> carList = carService.findAll();
         model.addAttribute("carList", carList);
     }
 
-    @RequestMapping("/car/add")
+    @RequestMapping("/add")
     public void carAdd(@ModelAttribute("car") Car car) {
     }
 
-    @RequestMapping(value="/car/add", method=RequestMethod.POST)
+    @RequestMapping(value="/add", method=RequestMethod.POST)
     public String carAdd(@ModelAttribute("car") @Valid Car car, BindingResult result) {
         if (result.hasErrors()) {
             // mostra o formulário novamente, com os erros
@@ -38,7 +39,7 @@ public class CarController {
         return "redirect:/car/list";
     }
 
-    @RequestMapping("/car/{id}/{field}")
+    @RequestMapping("/{id}/{field}")
     @ResponseBody
     public String showCarField(@PathVariable("id") Long carId,
                                 @PathVariable("field") String field) {
