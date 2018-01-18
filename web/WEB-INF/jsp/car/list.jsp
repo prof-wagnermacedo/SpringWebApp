@@ -9,6 +9,11 @@
     <p>
             ${car.name}: $${car.price}
     </p>
+    <ul>
+        <c:forEach items="${car.accessories}" var="accessory">
+            <li>${accessory.description}</li>
+        </c:forEach>
+    </ul>
 </c:forEach>
 
 </body>
