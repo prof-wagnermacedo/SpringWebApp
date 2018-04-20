@@ -28,7 +28,12 @@ public class CarDao {
         carList.add(car3);
     }
 
+    public void add(Car car) {
+        carList.add(car);
+    }
+
     public List<Car> findAll() {
         return carList;
     }
+
 }
