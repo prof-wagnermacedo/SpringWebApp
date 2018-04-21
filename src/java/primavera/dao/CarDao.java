@@ -35,6 +35,16 @@ public class CarDao {
         carList.add(car);
     }
 
+    public Car get(long id) {
+        for (Car car : carList) {
+            if (id == car.getId()) {
+                return car;
+            }
+        }
+
+        throw new IllegalArgumentException("Carro não encontrado: " + id);
+    }
+
     public List<Car> findAll() {
         return carList;
     }

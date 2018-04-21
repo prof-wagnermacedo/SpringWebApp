@@ -11,9 +11,10 @@
         </style>
     </head>
     <body>
-        <h1>Adicione um carro</h1>
+        <h1>${car.id == null ? 'Adicione' : 'Edite'} um carro</h1>
 
         <form:form method="POST" modelAttribute="car">
+            <form:hidden path="id" />
             <p>
                 Nome: <br>
                 <form:input path="name" />

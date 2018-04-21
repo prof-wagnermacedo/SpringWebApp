@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import primavera.dao.CarDao;
@@ -40,4 +41,11 @@ public class CarController {
         return "redirect:/car/list";
     }
 
+    @RequestMapping("/car/edit/{id}")
+    public String carEdit(@PathVariable("id") Long id, Model model) {
+        Car car = carDao.get(id);
+        model.addAttribute("car", car);
+
+        return "/car/add";
+    }
 }
