@@ -15,21 +15,22 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@RequestMapping("/car")
 public class CarController {
     @Autowired
     private CarDao carDao;
 
-    @RequestMapping("/car/list")
+    @RequestMapping("/list")
     public void carList(Model model) {
         List<Car> carList = carDao.findAll();
         model.addAttribute("carList", carList);
     }
 
-    @RequestMapping("/car/add")
+    @RequestMapping("/add")
     public void carAdd(@ModelAttribute("car") Car car) {
     }
 
-    @RequestMapping(value = "/car/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String carAdd(@ModelAttribute("car") @Valid Car car, BindingResult result) {
         if (result.hasErrors()) {
             // mostra o formulário novamente, com os erros
@@ -41,7 +42,7 @@ public class CarController {
         return "redirect:/car/list";
     }
 
-    @RequestMapping("/car/edit/{id}")
+    @RequestMapping("/edit/{id}")
     public String carEdit(@PathVariable("id") Long id, Model model) {
         Car car = carDao.get(id);
         model.addAttribute("car", car);
@@ -49,7 +50,7 @@ public class CarController {
         return "/car/add";
     }
 
-    @RequestMapping(value = "/car/edit/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
     public String carEdit(@ModelAttribute("car") @Valid Car car, BindingResult result) {
         if (result.hasErrors()) {
             // mostra o formulário novamente, com os erros
