@@ -11,7 +11,8 @@
         <h1>Carros</h1>
         <c:forEach items="${carList}" var="car">
             <p>
-                ${car.name}: $${car.price}
+                <c:url var="editUrl" value="/car/edit/${car.id}" />
+                ${car.name}: $${car.price} <a href="${editUrl}">Editar</a>
             </p>
         </c:forEach>
     </body>
