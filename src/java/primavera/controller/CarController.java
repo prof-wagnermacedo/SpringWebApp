@@ -25,7 +25,7 @@ public class CarController {
     }
 
     @RequestMapping("/car/add")
-    public void carAdd() {
+    public void carAdd(@ModelAttribute("car") Car car) {
     }
 
     @RequestMapping(value = "/car/add", method = RequestMethod.POST)
