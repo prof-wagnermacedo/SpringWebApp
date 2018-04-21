@@ -48,4 +48,16 @@ public class CarController {
 
         return "/car/add";
     }
+
+    @RequestMapping(value = "/car/edit/{id}", method = RequestMethod.POST)
+    public String carEdit(@ModelAttribute("car") @Valid Car car, BindingResult result) {
+        if (result.hasErrors()) {
+            // mostra o formulário novamente, com os erros
+            return "/car/add";
+        }
+
+        // validação bem sucedida
+        carDao.edit(car);
+        return "redirect:/car/list";
+    }
 }

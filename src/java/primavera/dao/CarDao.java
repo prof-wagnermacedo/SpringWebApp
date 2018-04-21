@@ -45,6 +45,17 @@ public class CarDao {
         throw new IllegalArgumentException("Carro não encontrado: " + id);
     }
 
+    public void edit(Car car) {
+        for (int i = 0; i < carList.size(); i++) {
+            if (car.getId() == carList.get(i).getId()) {
+                carList.set(i, car);
+                return;
+            }
+        }
+
+        throw new IllegalArgumentException("Carro não encontrado: " + car.getId());
+    }
+
     public List<Car> findAll() {
         return carList;
     }
