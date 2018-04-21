@@ -1,9 +1,16 @@
 package primavera.domain;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.math.BigDecimal;
 
 public class Car {
+    @NotEmpty
     private String name;
+
+    @Min(1000) @Max(5_000_000)
     private BigDecimal price;
 
     public String getName() {

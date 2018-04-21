@@ -3,12 +3,14 @@ package primavera.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import primavera.dao.CarDao;
 import primavera.domain.Car;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -27,7 +29,13 @@ public class CarController {
     }
 
     @RequestMapping(value = "/car/add", method = RequestMethod.POST)
-    public String carAdd(@ModelAttribute Car car) {
+    public String carAdd(@ModelAttribute("car") @Valid Car car, BindingResult result) {
+        if (result.hasErrors()) {
+            // mostra o formulário novamente, com os erros
+            return "/car/add";
+        }
+
+        // validação bem sucedida
         carDao.add(car);
         return "redirect:/car/list";
     }
