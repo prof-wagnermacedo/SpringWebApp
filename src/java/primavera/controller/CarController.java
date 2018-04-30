@@ -61,4 +61,18 @@ public class CarController {
         carDao.edit(car);
         return "redirect:/car/list";
     }
+
+    @RequestMapping("/delete/{id}")
+    public String carDelete(@PathVariable("id") Long id, Model model) {
+        Car car = carDao.get(id);
+        model.addAttribute("car", car);
+
+        return "/car/delete";
+    }
+
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String carDelete(@PathVariable("id") Long id) {
+        carDao.delete(id);
+        return "redirect:/car/list";
+    }
 }
