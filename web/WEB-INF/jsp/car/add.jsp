@@ -25,6 +25,10 @@
                 <form:input path="price" type="number" />
                 <form:errors path="price" cssClass="error" />
             </p>
+            <p>
+                Cor: <br>
+                <form:input path="color" type="color" />
+            </p>
 
             <input type="submit" />
         </form:form>

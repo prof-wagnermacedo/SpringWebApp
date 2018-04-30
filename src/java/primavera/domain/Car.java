@@ -15,6 +15,8 @@ public class Car {
     @Min(1000) @Max(5_000_000)
     private BigDecimal price;
 
+    private String color;
+
     public Long getId() {
         return id;
     }
@@ -37,5 +39,13 @@ public class Car {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }
