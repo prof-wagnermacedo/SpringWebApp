@@ -22,7 +22,10 @@ public class CarDao {
     }
 
     public Car get(long id) {
-        throw new UnsupportedOperationException();
+        String sql = "SELECT * FROM Cars WHERE id=?";
+        Car car = jdbcTemplate.queryForObject(sql, ROW_MAPPER, id);
+
+        return car;
     }
 
     public void edit(Car car) {
