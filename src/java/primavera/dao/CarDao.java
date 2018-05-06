@@ -29,7 +29,12 @@ public class CarDao {
     }
 
     public void edit(Car car) {
-        throw new UnsupportedOperationException();
+        String sql = "UPDATE Cars SET name=?, price=?, color=? WHERE id=?";
+        int rows = jdbcTemplate.update(sql, car.getName(), car.getPrice(), car.getColor(), car.getId());
+
+        if (rows == 0) {
+            throw new IllegalArgumentException("Carro não encontrado: " + car.getId());
+        }
     }
 
     public void delete(long id) {
