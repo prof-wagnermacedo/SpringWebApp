@@ -33,7 +33,12 @@ public class CarDao {
     }
 
     public void delete(long id) {
-        throw new UnsupportedOperationException();
+        String sql = "DELETE FROM Cars WHERE id=?";
+        int rows = jdbcTemplate.update(sql, id);
+
+        if (rows == 0) {
+            throw new IllegalArgumentException("Carro não encontrado: " + id);
+        }
     }
 
     public List<Car> findAll() {
