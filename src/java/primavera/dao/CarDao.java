@@ -18,7 +18,8 @@ public class CarDao {
     private static final RowMapper<Car> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Car.class);
 
     public void add(Car car) {
-        throw new UnsupportedOperationException();
+        String sql = "INSERT INTO Cars (name, price, color) values (?, ?, ?);";
+        jdbcTemplate.update(sql, car.getName(), car.getPrice(), car.getColor());
     }
 
     public Car get(long id) {
